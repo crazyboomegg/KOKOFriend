@@ -19,12 +19,9 @@ class FriendListViewModel {
         }
     }
     var delegate: FriendListDelegate?
-    
     var userInfo = [UserViewModel]()
-    
-//    func getInviteFriendList() {
-//        friends.filter {$0.stataus == 2}
-//    }
+    var filterFriend = [FriendViewModel]()
+
     
     func getFriend(success: @escaping () -> Void, fail: @escaping (String) -> Void) {
         let params = ["":""]
@@ -42,7 +39,31 @@ class FriendListViewModel {
             self.friends = friends
             return success()
         }
+    }  
+    
+
+    
+    func getMergeFriend(success: @escaping () -> Void, fail: @escaping (String) -> Void) {
+        let params = ["":""]
+        var friends = [FriendViewModel]()
+
+        ListResponse<Friend>.request(api: .friendOne, params: params) { res1 in
+            ListResponse<Friend>.request(api: .friendTwo, params: params) { res2 in
+                guard res1.isSuccess, res2.isSuccess, let v1 = res1.value, let v2 = res2.value else {
+                    fail("Failed to get friend list")
+                    return
+                }
+                friends = v1.response.map { FriendViewModel(friend: $0) } + v2.response.map { FriendViewModel(friend: $0) }
+                let fidToResponse = Dictionary(grouping: friends, by: { $0.fid as! String })
+                let mergedResponse = fidToResponse.values.compactMap {
+                    $0.max { ($0.updateDate as! String) < ($1.updateDate as! String) }
+                }
+                self.friends = mergedResponse
+                success()
+            }
+        }
     }
+    
     
     func getFriendInvite(success: @escaping () -> Void, fail: @escaping (String) -> Void) {
         let params = ["":""]

@@ -9,7 +9,10 @@ import Foundation
 import UIKit
 import SnapKit
 
-class FriendListViewController: UIViewController, FriendListDelegate {
+class FriendListViewController: UIViewController, FriendListDelegate, UISearchBarDelegate {
+    
+    
+    
     func didFriendChange(friends: [FriendViewModel]) {
         if friends.count > 0 {
             searchView.isHidden = false
@@ -23,8 +26,6 @@ class FriendListViewController: UIViewController, FriendListDelegate {
         }
     
     }
-    
-    
    
     var viewModel = FriendListViewModel()
     
@@ -35,7 +36,11 @@ class FriendListViewController: UIViewController, FriendListDelegate {
         addConstraints()
         setView()
         viewModel.delegate = self
-        viewModel.getFriend(success: { [self] in
+        self.searchBar.delegate = self
+        
+        
+        viewModel.getMergeFriend(success: { [self] in
+            viewModel.filterFriend = viewModel.friends
             self.tableView.reloadData()
             self.inviteTableView.reloadData()
             self.inviteTableView.snp.makeConstraints { make in
@@ -49,6 +54,27 @@ class FriendListViewController: UIViewController, FriendListDelegate {
             
             }, fail: {_ in
         })
+        
+        
+        // MARK: 有好友無邀請資料時為畫⾯1-(2)呈現
+//        viewModel.getFriend(success: { [self] in
+//            viewModel.filterFriend = viewModel.friends
+//            self.tableView.reloadData()
+//            self.inviteTableView.reloadData()
+//            self.inviteTableView.snp.makeConstraints { make in
+//                make.height.equalTo(self.inviteTableView.contentSize.height)
+//            }
+//            
+//            self.segmentView.snp.makeConstraints { make in
+//                make.top.equalTo(self.inviteTableView.snp.bottom).offset(0)
+//                make.bottom.equalTo(self.topView.snp.bottom).offset(-1)
+//            }
+//            
+//            }, fail: {_ in
+//        })
+        
+        // MARK:  同時有好友與邀請時畫1-(3)
+
 //        viewModel.getFriendInvite(success: { [self] in
 //            self.tableView.reloadData()
 //            self.inviteTableView.reloadData()
@@ -69,6 +95,16 @@ class FriendListViewController: UIViewController, FriendListDelegate {
             self.idContentButton.setTitle("\(viewModel.userInfo.first?.kokoid ?? "g")", for: .normal)
             self.kokoIdLabel.text = "KOKO ID : "
         }, fail: {_ in})
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            viewModel.filterFriend = viewModel.friends
+            tableView.reloadData()
+        } else {
+            viewModel.filterFriend = viewModel.friends.filter {$0.name == searchText }
+            tableView.reloadData()
+        }
     }
     
     func setView() {
@@ -415,20 +451,19 @@ extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
 
         
     if tableView == self.tableView {
-       return viewModel.friends.filter {$0.status != 2}.count
+        return viewModel.filterFriend.filter {$0.status != 2}.count
       
     } else if tableView == self.inviteTableView {
         return viewModel.friends.filter {$0.status == 2}.count
                 }
     return 0
-       // return viewModel.friends.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if tableView == self.tableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "FriendListTableViewCell", for: indexPath) as! FriendTableViewCell
-            cell.bind(friends: viewModel.friends.filter {$0.status != 2}[indexPath.row])
+            cell.bind(friends: viewModel.filterFriend.filter {$0.status != 2}[indexPath.row])
             
             return cell
             
