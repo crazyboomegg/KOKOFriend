@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class FriendListTableViewCell: UITableViewCell {
+class FriendTableViewCell: UITableViewCell {
     
     var friend: FriendViewModel?
     

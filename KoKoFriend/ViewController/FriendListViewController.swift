@@ -39,7 +39,7 @@ class FriendListViewController: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
-        self.tableView.register(FriendListTableViewCell.self, forCellReuseIdentifier: "FriendListTableViewCell")
+        self.tableView.register(FriendTableViewCell.self, forCellReuseIdentifier: "FriendListTableViewCell")
         
         if #available(iOS 11.0, *) {
             self.tableView.contentInsetAdjustmentBehavior = .never
@@ -65,12 +65,15 @@ class FriendListViewController: UIViewController {
            nameIdStackView.addArrangedSubview(view)
        }
        
+       
        [atmButton, moneyButton, scanButton, nameIdStackView, profileImage, segmentView].forEach { (view) in
            topView.addSubview(view)
        }
        
+       searchView.addSubview(searchBar)
        baseView.addSubview(topView)
        baseView.addSubview(placeholderView)
+       baseView.addSubview(searchView)
        baseView.addSubview(tableView)
        self.view.addSubview(baseView)
     }
@@ -123,8 +126,22 @@ class FriendListViewController: UIViewController {
             make.bottom.equalTo(baseView.snp.bottom).offset(0)
         }
         
-        tableView.snp.makeConstraints { make in
+        searchView.snp.makeConstraints { make in
             make.top.equalTo(topView.snp.bottom).offset(0)
+            make.left.equalTo(baseView.snp.left).offset(0)
+            make.right.equalTo(baseView.snp.right).offset(0)
+            make.height.equalTo(61)
+        }
+        
+        searchBar.snp.makeConstraints { make in
+            make.left.equalTo(baseView.snp.left).offset(30)
+            make.right.equalTo(baseView.snp.right).offset(-61)
+            make.top.equalTo(searchView.snp.top).offset(15)
+            make.bottom.equalTo(searchView.snp.bottom).offset(-10)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(searchView.snp.bottom).offset(0)
             make.left.equalTo(baseView.snp.left).offset(0)
             make.right.equalTo(baseView.snp.right).offset(0)
             make.bottom.equalTo(baseView.snp.bottom).offset(0)
@@ -310,6 +327,19 @@ class FriendListViewController: UIViewController {
             return tableView
         }()
     
+    private var searchView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white
+        return view
+    }()
+    
+    private var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "想轉一筆給誰呢?"
+        return searchBar
+    }()
+    
+   
 }
 
 
@@ -321,7 +351,7 @@ extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FriendListTableViewCell", for: indexPath) as! FriendListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FriendListTableViewCell", for: indexPath) as! FriendTableViewCell
         
         cell.bind(friends: viewModel.friends[indexPath.row])
         return cell

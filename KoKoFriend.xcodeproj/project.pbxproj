@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7D05325129B9727600107695 /* FriendListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D05325029B9727600107695 /* FriendListTableViewCell.swift */; };
+		7D05325129B9727600107695 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D05325029B9727600107695 /* FriendTableViewCell.swift */; };
 		7D05325A29B9A2D800107695 /* APIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D05325329B9A2D800107695 /* APIConstant.swift */; };
 		7D05325B29B9A2D800107695 /* ResponseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D05325429B9A2D800107695 /* ResponseResult.swift */; };
 		7D05325C29B9A2D800107695 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D05325529B9A2D800107695 /* NetworkManager.swift */; };
@@ -30,6 +30,7 @@
 		7D22C25729B7D309001D8D9D /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22C25629B7D309001D8D9D /* UIColor.swift */; };
 		7D22C25929B87B98001D8D9D /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22C25829B87B98001D8D9D /* UIButton.swift */; };
 		7DB8558929B9D2F80039EBFA /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB8558829B9D2F80039EBFA /* UserViewModel.swift */; };
+		7DF7252129BA205800B6D45B /* FriendReceviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF7252029BA205800B6D45B /* FriendReceviceTableViewCell.swift */; };
 		AC3A6E07776970020B76926F /* Pods_KoKoFriend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73DB7D4C45DA98A9C536CAC3 /* Pods_KoKoFriend.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,7 +38,7 @@
 		33DF60FD7A1645D5A006570C /* Pods-KoKoFriend.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KoKoFriend.debug.xcconfig"; path = "Target Support Files/Pods-KoKoFriend/Pods-KoKoFriend.debug.xcconfig"; sourceTree = "<group>"; };
 		5EFBA5CA2E394B8AA74E69E0 /* Pods-KoKoFriend.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KoKoFriend.release.xcconfig"; path = "Target Support Files/Pods-KoKoFriend/Pods-KoKoFriend.release.xcconfig"; sourceTree = "<group>"; };
 		73DB7D4C45DA98A9C536CAC3 /* Pods_KoKoFriend.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KoKoFriend.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7D05325029B9727600107695 /* FriendListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListTableViewCell.swift; sourceTree = "<group>"; };
+		7D05325029B9727600107695 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
 		7D05325329B9A2D800107695 /* APIConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConstant.swift; sourceTree = "<group>"; };
 		7D05325429B9A2D800107695 /* ResponseResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseResult.swift; sourceTree = "<group>"; };
 		7D05325529B9A2D800107695 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -62,6 +63,7 @@
 		7D22C25629B7D309001D8D9D /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		7D22C25829B87B98001D8D9D /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		7DB8558829B9D2F80039EBFA /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		7DF7252029BA205800B6D45B /* FriendReceviceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendReceviceTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +81,8 @@
 		7D05324F29B971EC00107695 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				7D05325029B9727600107695 /* FriendListTableViewCell.swift */,
+				7D05325029B9727600107695 /* FriendTableViewCell.swift */,
+				7DF7252029BA205800B6D45B /* FriendReceviceTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				7D05326829B9B6C000107695 /* FriendViewModel.swift in Sources */,
 				7D05325A29B9A2D800107695 /* APIConstant.swift in Sources */,
 				7D05325D29B9A2D800107695 /* RequestProtocol.swift in Sources */,
+				7DF7252129BA205800B6D45B /* FriendReceviceTableViewCell.swift in Sources */,
 				7D05325B29B9A2D800107695 /* ResponseResult.swift in Sources */,
 				7D05325C29B9A2D800107695 /* NetworkManager.swift in Sources */,
 				7D05325F29B9A2D800107695 /* API.swift in Sources */,
@@ -322,7 +326,7 @@
 				7D22C25429B46737001D8D9D /* TabBarController.swift in Sources */,
 				7D22C23F29B45A55001D8D9D /* SceneDelegate.swift in Sources */,
 				7D05326029B9A2D800107695 /* Requset.swift in Sources */,
-				7D05325129B9727600107695 /* FriendListTableViewCell.swift in Sources */,
+				7D05325129B9727600107695 /* FriendTableViewCell.swift in Sources */,
 				7D05326329B9AD4000107695 /* Friend.swift in Sources */,
 				7D05326E29B9BA8500107695 /* User.swift in Sources */,
 			);

@@ -36,6 +36,10 @@ class TabBarController: UITabBarController {
         okVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "ic_tabbar_home_off-1"), selectedImage: nil)
         accountVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "ic_tabbar_manage_off"), selectedImage: nil)
         settingVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "ic_tabbar_setting_off"), selectedImage: nil)
+       
+
+        // 設定選中的 TabBarItem 圖示顏色
+        UITabBar.appearance().tintColor = UIColor(hexString: "#ec008c")
         
         viewControllers = [moneyVC, friendVC, okVC, accountVC, settingVC]
 
