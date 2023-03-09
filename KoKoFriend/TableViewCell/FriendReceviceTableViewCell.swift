@@ -14,12 +14,39 @@ override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addUI()
         addConstraints()
-        contentView.backgroundColor = UIColor.white
+      //  contentView.backgroundColor = UIColor.blue
         
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func bind(friends: FriendViewModel) {
+        self.idLabel.text = friends.name
+//        if friends.isTop == "0" {
+//            self.starImage.isHidden = true
+//        } else {
+//            self.starImage.isHidden = false
+//        }
+       
+//        switch friends.status {
+//            
+//        case 0:
+//            inviteButton.isHidden = false
+//            nonImage.isHidden = true
+//            break
+//        case 1:
+//            inviteButton.isHidden = true
+//            nonImage.isHidden = false
+//            break
+//        case 2:
+//            inviteButton.isHidden = false
+//            nonImage.isHidden = true
+//            break
+//        default:
+//            break
+//        }
     }
 
 
@@ -38,9 +65,14 @@ func addUI() {
 }
 
 func addConstraints() {
+//    contentView.snp.makeConstraints { make in
+//        make.height.equalTo(10)
+//        make.left.right.equalToSuperview()
+//    }
+    
     baseView.snp.makeConstraints { make in
-        make.top.equalTo(contentView.snp.top).offset(0)
-        make.bottom.equalTo(contentView.snp.bottom).offset(0)
+        make.top.equalTo(contentView.snp.top).offset(10)
+        make.bottom.equalTo(contentView.snp.bottom).offset(-10)
         make.left.equalTo(contentView.snp.left).offset(30)
         make.right.equalTo(contentView.snp.right).offset(-30)
     }
@@ -48,6 +80,7 @@ func addConstraints() {
     profileImage.snp.makeConstraints { make in
         make.centerY.equalTo(baseView)
         make.left.equalTo(baseView.snp.left).offset(15)
+        //make.top.equalTo(contentView.snp.top).offset(10)
     }
     
     idStackView.snp.makeConstraints { make in
@@ -70,9 +103,10 @@ func addConstraints() {
 
     private var baseView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.brown
+        view.layer.cornerRadius = 5
+        view.backgroundColor = UIColor.white
         view.layer.shadowOffset = CGSize(width: 1.5, height: 3)
-        view.layer.shadowOpacity = 0.7
+        view.layer.shadowOpacity = 0.2
         view.layer.shadowRadius = 5
         return view
     }()

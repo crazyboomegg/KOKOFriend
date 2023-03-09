@@ -9,29 +9,65 @@ import Foundation
 import UIKit
 import SnapKit
 
-class FriendListViewController: UIViewController {
+class FriendListViewController: UIViewController, FriendListDelegate {
+    func didFriendChange(friends: [FriendViewModel]) {
+        if friends.count > 0 {
+            searchView.isHidden = false
+            tableView.isHidden = false
+            placeholderView.isHidden = true
+            tableView.reloadData()
+        } else {
+            searchView.isHidden = true
+            tableView.isHidden = true
+            placeholderView.isHidden = false
+        }
     
+    }
+    
+    
+   
     var viewModel = FriendListViewModel()
-//    var friendList = [FriendViewModel]() {
-//        didSet {
-//            placeholderView.isHidden = friendList.count > 0
-//            tableView.reloadData()
-//        }
-//    }
+    
     
     override func viewDidLoad() {
         view.backgroundColor = UIColor.white
         addUI()
         addConstraints()
         setView()
-        viewModel.getFriend(success: {
+        viewModel.delegate = self
+        viewModel.getFriend(success: { [self] in
             self.tableView.reloadData()
-        }, fail: {_ in
+            self.inviteTableView.reloadData()
+            self.inviteTableView.snp.makeConstraints { make in
+                make.height.equalTo(self.inviteTableView.contentSize.height)
+            }
             
+            self.segmentView.snp.makeConstraints { make in
+                make.top.equalTo(self.inviteTableView.snp.bottom).offset(0)
+                make.bottom.equalTo(self.topView.snp.bottom).offset(-1)
+            }
+            
+            }, fail: {_ in
         })
+//        viewModel.getFriendInvite(success: { [self] in
+//            self.tableView.reloadData()
+//            self.inviteTableView.reloadData()
+//            self.inviteTableView.snp.makeConstraints { make in
+//                make.height.equalTo(self.inviteTableView.contentSize.height)
+//            }
+//
+//            self.segmentView.snp.makeConstraints { make in
+//                make.top.equalTo(self.inviteTableView.snp.bottom).offset(0)
+//                make.bottom.equalTo(self.topView.snp.bottom).offset(-1)
+//            }
+//
+//            }, fail: {_ in
+//        })
+        
         viewModel.getUserInfo(success: { [self] in
             self.nameLabel.text = viewModel.userInfo.first?.name
-            self.idContentLabel.setTitle("\(viewModel.userInfo.first?.kokoid)", for: .normal)
+            self.idContentButton.setTitle("\(viewModel.userInfo.first?.kokoid ?? "g")", for: .normal)
+            self.kokoIdLabel.text = "KOKO ID : "
         }, fail: {_ in})
     }
     
@@ -40,6 +76,13 @@ class FriendListViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
         self.tableView.register(FriendTableViewCell.self, forCellReuseIdentifier: "FriendListTableViewCell")
+//        self.tableView.estimatedRowHeight =
+        
+        self.inviteTableView.delegate = self
+        self.inviteTableView.dataSource = self
+        self.inviteTableView.separatorStyle = .none
+        self.inviteTableView.register(FriendReceviceTableViewCell.self, forCellReuseIdentifier: "FriendReceviceTableViewCell")
+        self.inviteTableView.estimatedRowHeight = 90
         
         if #available(iOS 11.0, *) {
             self.tableView.contentInsetAdjustmentBehavior = .never
@@ -49,6 +92,14 @@ class FriendListViewController: UIViewController {
             self.tableView.cellForRow(at: indexPath)
             self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         }
+        if #available(iOS 11.0, *) {
+            self.inviteTableView.contentInsetAdjustmentBehavior = .never
+        }
+        if self.inviteTableView.contentSize.height != 0 {
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.inviteTableView.cellForRow(at: indexPath)
+            self.inviteTableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        }
     }
     
     
@@ -57,7 +108,7 @@ class FriendListViewController: UIViewController {
     
     
    private func addUI() {
-       [kokoIdLabel, idContentLabel].forEach { (view) in
+       [kokoIdLabel, idContentButton].forEach { (view) in
            idStackView.addArrangedSubview(view)
        }
        
@@ -75,6 +126,7 @@ class FriendListViewController: UIViewController {
        baseView.addSubview(placeholderView)
        baseView.addSubview(searchView)
        baseView.addSubview(tableView)
+       baseView.addSubview(inviteTableView)
        self.view.addSubview(baseView)
     }
     
@@ -147,6 +199,13 @@ class FriendListViewController: UIViewController {
             make.bottom.equalTo(baseView.snp.bottom).offset(0)
         }
         
+        inviteTableView.snp.makeConstraints { make in
+            make.top.equalTo(nameIdStackView.snp.bottom).offset(10)
+            make.left.equalTo(topView.snp.left).offset(0)
+            make.right.equalTo(topView.snp.right).offset(0)
+           // make.bottom.equalTo(segmentView.snp.top).offset(-10)
+        }
+        
     }
     
     private var baseView: UIView = {
@@ -199,12 +258,13 @@ class FriendListViewController: UIViewController {
         return label
     }()
     
-    private var idContentLabel: UIButton = {
+    private var idContentButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "ic_info_back_deep gray"), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 13)
         button.setTitle("olylinhuang", for: .normal)
-        button.semanticContentAttribute = .forceLeftToRight
+        button.setTitleColor(UIColor(hexString: "#474747"), for: .normal)
+        button.semanticContentAttribute = .forceRightToLeft
         button.centerTextAndImage(spacing: 1)
         return button
     }()
@@ -325,7 +385,12 @@ class FriendListViewController: UIViewController {
     private var tableView: UITableView = {
             let tableView = UITableView()
             return tableView
-        }()
+    }()
+    
+    private var inviteTableView: UITableView = {
+            let tableView = UITableView()
+            return tableView
+    }()
     
     private var searchView: UIView = {
         let view = UIView()
@@ -347,13 +412,50 @@ class FriendListViewController: UIViewController {
 extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.friends.count
+
+        
+    if tableView == self.tableView {
+       return viewModel.friends.filter {$0.status != 2}.count
+      
+    } else if tableView == self.inviteTableView {
+        return viewModel.friends.filter {$0.status == 2}.count
+                }
+    return 0
+       // return viewModel.friends.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FriendListTableViewCell", for: indexPath) as! FriendTableViewCell
         
-        cell.bind(friends: viewModel.friends[indexPath.row])
-        return cell
+        if tableView == self.tableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FriendListTableViewCell", for: indexPath) as! FriendTableViewCell
+            cell.bind(friends: viewModel.friends.filter {$0.status != 2}[indexPath.row])
+            
+            return cell
+            
+        } else if tableView == self.inviteTableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FriendReceviceTableViewCell", for: indexPath) as! FriendReceviceTableViewCell
+            cell.bind(friends: viewModel.friends.filter {$0.status == 2}[indexPath.row])
+
+            return cell
+            
+        }
+        return UITableViewCell()
+    }
+    
+    
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        if tableView == self.inviteTableView{
+//            return 100
+//        } else {
+//            return 0
+//        }
+//    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if tableView == self.inviteTableView{
+            return self.inviteTableView.estimatedRowHeight
+        } else {
+            return self.tableView.estimatedRowHeight
+        }
     }
 }
