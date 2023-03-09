@@ -1,0 +1,6 @@
+framework module Pods_KoKoFriend {
+  umbrella header "Pods-KoKoFriend-umbrella.h"
+
+  export *
+  module * { export * }
+}
