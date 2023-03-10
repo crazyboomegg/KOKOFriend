@@ -1,20 +1,20 @@
 //
-//  FriendListViewController.swift
+//  MoneyViewController.swift
 //  KoKoFriend
 //
-//  Created by 江柏毅 on 2023/3/5.
+//  Created by 江柏毅 on 2023/3/10.
 //
 
 import Foundation
 import UIKit
 import SnapKit
 
-class FriendListViewController: UIViewController, FriendListDelegate, UISearchBarDelegate {
+class MoneyViewController: UIViewController, FriendListDelegate, UISearchBarDelegate {
     
     
     
     func didFriendChange(friends: [FriendViewModel]) {
-        if friends.count > 0 {
+        if friends.count < 0 {
             searchView.isHidden = false
             tableView.isHidden = false
             placeholderView.isHidden = true
@@ -56,7 +56,7 @@ class FriendListViewController: UIViewController, FriendListDelegate, UISearchBa
 //        })
         
         
-//        // MARK: 有好友無邀請資料時為畫⾯1-(2)呈現
+        // MARK: 有好友無邀請資料時為畫⾯1-(2)呈現
         viewModel.getFriend(success: { [self] in
             viewModel.filterFriend = viewModel.friends
             self.tableView.reloadData()
@@ -64,12 +64,12 @@ class FriendListViewController: UIViewController, FriendListDelegate, UISearchBa
             self.inviteTableView.snp.makeConstraints { make in
                 make.height.equalTo(self.inviteTableView.contentSize.height)
             }
-
+            
             self.segmentView.snp.makeConstraints { make in
                 make.top.equalTo(self.inviteTableView.snp.bottom).offset(0)
                 make.bottom.equalTo(self.topView.snp.bottom).offset(-1)
             }
-
+            
             }, fail: {_ in
         })
         
@@ -460,7 +460,7 @@ class FriendListViewController: UIViewController, FriendListDelegate, UISearchBa
 
 
 
-extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
+extension MoneyViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 

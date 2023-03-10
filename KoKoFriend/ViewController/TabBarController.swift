@@ -25,10 +25,10 @@ class TabBarController: UITabBarController {
         
        // view.backgroundColor = UIColor.red
         self.tabBar.backgroundColor = UIColor(hexString: "efefef")
-        let moneyVC = FriendListViewController()
+        let moneyVC = MoneyViewController()
         let friendVC = FriendListViewController()
-        let okVC = FriendListViewController()
-        let accountVC = FriendListViewController()
+        let okVC = OKViewController()
+        let accountVC = AccountViewController()
         let settingVC = FriendListViewController()
         
         moneyVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "KoKoiCon_Money"), selectedImage: nil)

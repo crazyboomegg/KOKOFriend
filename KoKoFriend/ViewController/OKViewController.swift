@@ -1,15 +1,15 @@
 //
-//  FriendListViewController.swift
+//  OKViewController.swift
 //  KoKoFriend
 //
-//  Created by 江柏毅 on 2023/3/5.
+//  Created by 江柏毅 on 2023/3/10.
 //
 
 import Foundation
 import UIKit
 import SnapKit
 
-class FriendListViewController: UIViewController, FriendListDelegate, UISearchBarDelegate {
+class OKViewController: UIViewController, FriendListDelegate, UISearchBarDelegate {
     
     
     
@@ -57,25 +57,8 @@ class FriendListViewController: UIViewController, FriendListDelegate, UISearchBa
         
         
 //        // MARK: 有好友無邀請資料時為畫⾯1-(2)呈現
-        viewModel.getFriend(success: { [self] in
-            viewModel.filterFriend = viewModel.friends
-            self.tableView.reloadData()
-            self.inviteTableView.reloadData()
-            self.inviteTableView.snp.makeConstraints { make in
-                make.height.equalTo(self.inviteTableView.contentSize.height)
-            }
-
-            self.segmentView.snp.makeConstraints { make in
-                make.top.equalTo(self.inviteTableView.snp.bottom).offset(0)
-                make.bottom.equalTo(self.topView.snp.bottom).offset(-1)
-            }
-
-            }, fail: {_ in
-        })
-        
-        // MARK:  同時有好友與邀請時畫1-(3)
-
-//        viewModel.getFriendInvite(success: { [self] in
+//        viewModel.getFriend(success: { [self] in
+//            viewModel.filterFriend = viewModel.friends
 //            self.tableView.reloadData()
 //            self.inviteTableView.reloadData()
 //            self.inviteTableView.snp.makeConstraints { make in
@@ -89,6 +72,23 @@ class FriendListViewController: UIViewController, FriendListDelegate, UISearchBa
 //
 //            }, fail: {_ in
 //        })
+        
+        // MARK:  同時有好友與邀請時畫1-(3)
+
+        viewModel.getFriendInvite(success: { [self] in
+            self.tableView.reloadData()
+            self.inviteTableView.reloadData()
+            self.inviteTableView.snp.makeConstraints { make in
+                make.height.equalTo(self.inviteTableView.contentSize.height)
+            }
+
+            self.segmentView.snp.makeConstraints { make in
+                make.top.equalTo(self.inviteTableView.snp.bottom).offset(0)
+                make.bottom.equalTo(self.topView.snp.bottom).offset(-1)
+            }
+
+            }, fail: {_ in
+        })
         
         viewModel.getUserInfo(success: { [self] in
             self.nameLabel.text = viewModel.userInfo.first?.name
@@ -460,13 +460,13 @@ class FriendListViewController: UIViewController, FriendListDelegate, UISearchBa
 
 
 
-extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
+extension OKViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         
     if tableView == self.tableView {
-        return viewModel.filterFriend.filter {$0.status != 2}.count
+        return viewModel.friends.filter {$0.status != 2}.count
       
     } else if tableView == self.inviteTableView {
         return viewModel.friends.filter {$0.status == 2}.count
@@ -478,7 +478,7 @@ extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
         
         if tableView == self.tableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "FriendTableViewCell", for: indexPath) as! FriendTableViewCell
-            cell.bind(friends: viewModel.filterFriend.filter {$0.status != 2}[indexPath.row])
+            cell.bind(friends: viewModel.friends.filter {$0.status != 2}[indexPath.row])
             
             return cell
             
@@ -500,3 +500,4 @@ extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
 }
+

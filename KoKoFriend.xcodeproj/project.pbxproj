@@ -30,6 +30,9 @@
 		7D22C25729B7D309001D8D9D /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22C25629B7D309001D8D9D /* UIColor.swift */; };
 		7D22C25929B87B98001D8D9D /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22C25829B87B98001D8D9D /* UIButton.swift */; };
 		7DB8558929B9D2F80039EBFA /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB8558829B9D2F80039EBFA /* UserViewModel.swift */; };
+		7DDE0D0C29BB277C0013C550 /* MoneyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDE0D0B29BB277C0013C550 /* MoneyViewController.swift */; };
+		7DDE0D0E29BB27F80013C550 /* OKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDE0D0D29BB27F80013C550 /* OKViewController.swift */; };
+		7DDE0D1029BB2A790013C550 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDE0D0F29BB2A790013C550 /* AccountViewController.swift */; };
 		7DF7252129BA205800B6D45B /* FriendReceviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF7252029BA205800B6D45B /* FriendReceviceTableViewCell.swift */; };
 		AC3A6E07776970020B76926F /* Pods_KoKoFriend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73DB7D4C45DA98A9C536CAC3 /* Pods_KoKoFriend.framework */; };
 /* End PBXBuildFile section */
@@ -63,6 +66,9 @@
 		7D22C25629B7D309001D8D9D /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		7D22C25829B87B98001D8D9D /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		7DB8558829B9D2F80039EBFA /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		7DDE0D0B29BB277C0013C550 /* MoneyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyViewController.swift; sourceTree = "<group>"; };
+		7DDE0D0D29BB27F80013C550 /* OKViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OKViewController.swift; sourceTree = "<group>"; };
+		7DDE0D0F29BB2A790013C550 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		7DF7252029BA205800B6D45B /* FriendReceviceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendReceviceTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,6 +169,9 @@
 				7D22C24029B45A55001D8D9D /* ViewController.swift */,
 				7D22C25129B4613C001D8D9D /* FriendListViewController.swift */,
 				7D22C25329B46737001D8D9D /* TabBarController.swift */,
+				7DDE0D0B29BB277C0013C550 /* MoneyViewController.swift */,
+				7DDE0D0D29BB27F80013C550 /* OKViewController.swift */,
+				7DDE0D0F29BB2A790013C550 /* AccountViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -310,13 +319,16 @@
 			files = (
 				7D22C25229B4613C001D8D9D /* FriendListViewController.swift in Sources */,
 				7D22C25729B7D309001D8D9D /* UIColor.swift in Sources */,
+				7DDE0D1029BB2A790013C550 /* AccountViewController.swift in Sources */,
 				7D05326829B9B6C000107695 /* FriendViewModel.swift in Sources */,
 				7D05325A29B9A2D800107695 /* APIConstant.swift in Sources */,
 				7D05325D29B9A2D800107695 /* RequestProtocol.swift in Sources */,
+				7DDE0D0E29BB27F80013C550 /* OKViewController.swift in Sources */,
 				7DF7252129BA205800B6D45B /* FriendReceviceTableViewCell.swift in Sources */,
 				7D05325B29B9A2D800107695 /* ResponseResult.swift in Sources */,
 				7D05325C29B9A2D800107695 /* NetworkManager.swift in Sources */,
 				7D05325F29B9A2D800107695 /* API.swift in Sources */,
+				7DDE0D0C29BB277C0013C550 /* MoneyViewController.swift in Sources */,
 				7D05325E29B9A2D800107695 /* Response.swift in Sources */,
 				7D22C24129B45A55001D8D9D /* ViewController.swift in Sources */,
 				7D22C23D29B45A55001D8D9D /* AppDelegate.swift in Sources */,

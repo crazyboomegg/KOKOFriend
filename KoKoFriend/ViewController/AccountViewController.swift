@@ -1,15 +1,15 @@
 //
-//  FriendListViewController.swift
+//  AccountViewController.swift
 //  KoKoFriend
 //
-//  Created by 江柏毅 on 2023/3/5.
+//  Created by 江柏毅 on 2023/3/10.
 //
 
 import Foundation
 import UIKit
 import SnapKit
 
-class FriendListViewController: UIViewController, FriendListDelegate, UISearchBarDelegate {
+class AccountViewController: UIViewController, FriendListDelegate, UISearchBarDelegate {
     
     
     
@@ -39,25 +39,7 @@ class FriendListViewController: UIViewController, FriendListDelegate, UISearchBa
         self.searchBar.delegate = self
         
         
-//        viewModel.getMergeFriend(success: { [self] in
-//            viewModel.filterFriend = viewModel.friends
-//            self.tableView.reloadData()
-//            self.inviteTableView.reloadData()
-//            self.inviteTableView.snp.makeConstraints { make in
-//                make.height.equalTo(self.inviteTableView.contentSize.height)
-//            }
-//
-//            self.segmentView.snp.makeConstraints { make in
-//                make.top.equalTo(self.inviteTableView.snp.bottom).offset(0)
-//                make.bottom.equalTo(self.topView.snp.bottom).offset(-1)
-//            }
-//
-//            }, fail: {_ in
-//        })
-        
-        
-//        // MARK: 有好友無邀請資料時為畫⾯1-(2)呈現
-        viewModel.getFriend(success: { [self] in
+        viewModel.getMergeFriend(success: { [self] in
             viewModel.filterFriend = viewModel.friends
             self.tableView.reloadData()
             self.inviteTableView.reloadData()
@@ -72,6 +54,24 @@ class FriendListViewController: UIViewController, FriendListDelegate, UISearchBa
 
             }, fail: {_ in
         })
+        
+        
+        // MARK: 有好友無邀請資料時為畫⾯1-(2)呈現
+//        viewModel.getFriend(success: { [self] in
+//            viewModel.filterFriend = viewModel.friends
+//            self.tableView.reloadData()
+//            self.inviteTableView.reloadData()
+//            self.inviteTableView.snp.makeConstraints { make in
+//                make.height.equalTo(self.inviteTableView.contentSize.height)
+//            }
+//
+//            self.segmentView.snp.makeConstraints { make in
+//                make.top.equalTo(self.inviteTableView.snp.bottom).offset(0)
+//                make.bottom.equalTo(self.topView.snp.bottom).offset(-1)
+//            }
+//
+//            }, fail: {_ in
+//        })
         
         // MARK:  同時有好友與邀請時畫1-(3)
 
@@ -460,7 +460,7 @@ class FriendListViewController: UIViewController, FriendListDelegate, UISearchBa
 
 
 
-extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
+extension AccountViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
@@ -500,3 +500,4 @@ extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
 }
+
